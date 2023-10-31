@@ -14,7 +14,7 @@ const Journal = ({ currentUser }) => {
       const url = `http://localhost:5050/api/stats/weekly/?user=${currentUser}&start=${moment(startDate).format('YYYY-MM-DD')}&end=${moment(endDate).format('YYYY-MM-DD')}`;
       const response = await axios.get(url);
       console.log('API Response:', response.data); 
-      setExercises(response.data.stats);  // Updated this line
+      setExercises(response.data.stats);
     } catch (error) {
       console.error('Failed to fetch exercises', error);
     }

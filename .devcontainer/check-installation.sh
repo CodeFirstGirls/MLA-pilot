@@ -8,7 +8,7 @@ command_exists () {
 echo "Checking installations..."
 
 # Check each command
-for cmd in node npm python3 pip3 gradle docker docke-compose; do
+for cmd in node npm python3 pip3 gradle docker docker-compose; do
     if command_exists $cmd; then
         version=$($cmd --version)
         echo "$cmd is installed with version: $version"

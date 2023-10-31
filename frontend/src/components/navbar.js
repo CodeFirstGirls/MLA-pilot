@@ -23,16 +23,15 @@ const NavbarComponent = ({ onLogout }) => {
   };
 
   return (
-    <Navbar className="nav-back" expand="lg">
-      {/* <Navbar.Brand href="#">CFG Fitness App</Navbar.Brand> */}
+    <Navbar className="nav-back custom-navbar" expand="lg">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
         <Nav>
-      <Nav.Link className="custom-nav-link" onClick={() => onNavigate('TrackExercise')}>Track New Exercise</Nav.Link>
-      <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Statistics')}>Statistics</Nav.Link>
-      <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Journal')}>Weekly Journal</Nav.Link>
-      <Nav.Link className="custom-nav-link" onClick={onLogout}>Logout</Nav.Link>
+          <Nav.Link className="custom-nav-link" onClick={() => onNavigate('TrackExercise')}>Track New Exercise</Nav.Link>
+          <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Statistics')}>Statistics</Nav.Link>
+          <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Journal')}>Weekly Journal</Nav.Link>
+          <Nav.Link className="custom-nav-link" onClick={onLogout}>Logout</Nav.Link>
         </Nav>
         </Nav>
       </Navbar.Collapse>

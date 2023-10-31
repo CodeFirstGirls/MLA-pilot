@@ -6,7 +6,7 @@ The Activity Tracking functionality uses the MERN stack (MongoDB, Express.js, Re
 
 ![Screenshot](screenshots/frontpage.png)  
 
-## Current Features
+### Current Features
 
 - User registration for personalized tracking
 - Log various types of exercises with descriptions, duration, and date
@@ -14,7 +14,7 @@ The Activity Tracking functionality uses the MERN stack (MongoDB, Express.js, Re
 - Interactive UI with Material-UI components
 - Real-time data persistence with MongoDB
 
-## Prerequisites
+### Prerequisites
 
 - Node.js
 - MongoDB
@@ -23,16 +23,56 @@ The Activity Tracking functionality uses the MERN stack (MongoDB, Express.js, Re
 - Java 8
 (all already installed in the devcontainer)
 
-## Local Development
 
-### Clone the repository
+## Development in Github Codespaces
 
+#### Starting a new Devcontainer
+
+1. Click on "Code"
+2. Switch to the "Codespaces" tab
+3. Create new Codespace from main
+<img src="screenshots/codespaces.png" width="300"/>
+
+
+4. Open Codespace in VS code for best experience:
+<img src="screenshots/codespaces2.png" width="300"/>
+
+
+Walktrough:
+
+https://docs.github.com/en/codespaces/developing-in-a-codespace/using-github-codespaces-in-visual-studio-code
+
+
+#### Check needed packages are installed:
 ```sh
-git clone git@github.com:CodeFirstGirls/MLA-pilot.git
-cd MLA-Pilot
+sh .devcontainer/check-installation.sh 
 ```
 
-### Building with Docker
+expected output:
+
+```
+Checking installations...
+node is /usr/local/bin/node
+node is installed with version: v18.16.0
+npm is /usr/local/bin/npm
+npm is installed with version: 9.5.1
+python3 is /usr/bin/python3
+python3 is installed with version: Python 3.9.2
+pip3 is /usr/bin/pip3
+pip3 is installed with version: pip 20.3.4 from /usr/lib/python3/dist-packages/pip (python 3.9)
+gradle is /usr/bin/gradle
+gradle is installed with version: 
+------------------------------------------------------------
+Gradle 4.4.1
+------------------------------------------------------------
+......
+Done checking installations.
+```
+
+if you're missing any version, please contact your course administrator. 
+
+
+### Building entire project with Docker
 
 ```sh
 docker-compose up
@@ -40,21 +80,16 @@ docker-compose up
 
 #### Spinning up a single service
 ```sh
-docker-compose up servicename
+docker-compose up [servicename]
 ```
 
-
-## Local Development without using Docker-Compose
-
-#### Check needed packages are installed:
+#### Shutting down a service
 ```sh
-sh .devcontainer/check-installation.sh 
+docker-compose down [servicename]
 ```
 
-#### spin up MongoDB:
-```
-docker run --name mymongo -d -p 27017:27017 -v mongodbdata:/data/db mongo:latest
-```
+
+## Development without using Docker-Compose
 
 #### Running Node.js Activity Tracker
 
@@ -85,6 +120,11 @@ npm install
 npm start
 ```
 
+#### spin up MongoDB:
+```
+docker run --name mymongo -d -p 27017:27017 -v mongodbdata:/data/db mongo:latest
+```
+
 ### Connect to MongoDB
 
 ```
@@ -96,10 +136,16 @@ show registered activities:
 db.exercises.find()
 ```
 
-Currently there is just one database for the entire application. This will be changed in the microservices lab.
+show registered users:
+```
+db.users.find()
+```
 
 
 ## Deployment
 The application is containerized using Docker and can be deployed on any platform that supports Docker containers. For AWS deployment, a GitHub Actions pipeline is configured for CI/CD.
 
-Currently there is only one pipeline deploying all services. This will be changed in the CI/CD lab.
+
+## Lab solutions
+
+CI/CD lab: branch cicd-lab

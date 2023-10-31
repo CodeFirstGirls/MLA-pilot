@@ -1,16 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
+
 body, html, div, h1, h2, h3, p, button {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
+  font-family: 'Barlow', sans-serif;
   vertical-align: baseline;
 }
 
 body {
   line-height: 1;
-  font-family: Arial, sans-serif;
   color: #333; 
+}
+
+#appLogo {
+  width: 150px;
+  height: auto;
 }
 
 .App {
@@ -21,13 +27,13 @@ body {
 }
 
 .appTitle h1 {
-  color: #F54996;
+  color: #F54996ff;
   font-size: 36px;
-  margin-bottom: 20px;
+  margin: 40px 0 40px 0;
 }
 
 .appTitle {
-  margin-bottom: 20px; /* Adjust this value to give more space if needed */
+  margin: 40px 0 40px 0;
   text-align: center;
 }
 
@@ -37,7 +43,7 @@ form {
 
 
 button.navigationButton {
-  background-color: #F54996; 
+  background-color: #F54996ff; 
   color: white; 
   border: none;
   padding: 10px 20px;
@@ -65,22 +71,22 @@ p.successMessage {
 
 .btn-primary {
   background-color: #F54996 !important;
-  border-color: #F54996 !important;
+  border-color: #F54996ff !important;
 }
 
 .btn-primary:hover {
   background-color: #f03087 !important; 
-  border-color: #F54996 !important; 
+  border-color: #F54996ff !important; 
 }
 
 .btn-success {
   background-color: #F54996 !important;
-  border-color: #F54996 !important;
+  border-color: #F54996ff !important;
 }
 
 .btn-success:hover {
   background-color: #f03087 !important;  
-  border-color: #F54996 !important; 
+  border-color: #F54996ff !important; 
 }
 
 input#duration {
@@ -112,7 +118,7 @@ input#duration {
 }
 
 .custom-nav-link {
-  margin-right: 40px; /* Adjust this value as needed */
+  margin-right: 40px;
 }
 
 .signup {

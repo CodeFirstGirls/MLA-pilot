@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/signup", "/api/auth/login").permitAll() // Public access to signup and login
                 .anyRequest().authenticated() // All other requests need authentication
                 .and()
-                .httpBasic(); // Enable basic authentication
+                .httpBasic();
     }
 
     @Bean

@@ -3,12 +3,13 @@ FROM mcr.microsoft.com/devcontainers/javascript-node:0-18
 
 # Install OpenJDK 8
 RUN apt-get update && \
-    apt-get install -y wget apt-transport-https gnupg && \
-    wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
-    echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/adoptopenjdk.list && \
+    apt-get install -y wget apt-transport-https gnupg software-properties-common && \
+    wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add - && \
+    add-apt-repository --yes https://packages.adoptium.net/artifactory/deb/ && \
     apt-get update && \
-    apt-get install -y adoptopenjdk-8-hotspot && \
+    apt-get install -y temurin-8-jdk && \
     apt-get clean;
+
 
 # Install git, Python, pip, Gradle
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \

@@ -10,6 +10,7 @@ import Footer from './components/footer';
 import Login from './components/login';
 import Signup from './components/signup';
 import Journal from './components/journal';
+import logo from './img/CFG_logo.png'; // Update the path to your logo file
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,7 +30,8 @@ function App() {
     <div className="App">
       <Router>
         <div className="appTitle">
-          <h1>CFG Fitness App</h1>
+          <h1>MLA Fitness App</h1>
+          <img src={logo} alt="CFG Fitness App Logo" id="appLogo" />
         </div>
 
         {isLoggedIn && <NavbarComponent onLogout={handleLogout} />}
