@@ -21,6 +21,13 @@ RUN npm install -g cors axios express create-react-app
 # Install Python requirements
 RUN pip3 install Flask pymongo gunicorn python-dotenv Flask-PyMongo Flask-CORS
 
+# Install mongosh
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add - \
+    && echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/debian bullseye/mongodb-org/7.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list \
+    && sudo apt-get update \
+    && sudo apt-get install -y mongodb-mongosh mongodb-org-server \
+    && sudo apt-get clean
+
 # Clean up
 RUN rm -rf /var/lib/apt/lists/*
 

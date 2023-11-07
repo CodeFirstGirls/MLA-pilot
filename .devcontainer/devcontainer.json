@@ -24,6 +24,6 @@
 		}
 	},
 
-	"postCreateCommand": "npm install"
+	"postCreateCommand": "npm install && bash ./.devcontainer/check-installation.sh"
 
 }
