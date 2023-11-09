@@ -1,0 +1,61 @@
+name: Deploy to AWS EKS
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Docker image version to deploy"
+        required: true
+      environment:
+        description: "Target environment"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - name: Frontend
+            dir: frontend
+            repo: mla-fitnessapp-fe
+            k8s_deployment_name: "frontend-deployment"
+            eks_cluster_name: "frontend-cluster"
+          - name: Activity Tracking
+            dir: activity-tracking
+            repo: mla-fitnessapp-activity
+            k8s_deployment_name: "activity-tracking-deployment"
+            eks_cluster_name: "activity-tracking-cluster"
+          - name: AuthService
+            dir: authservice
+            repo: mla-fitnessapp-authservice
+            k8s_deployment_name: "authservice-deployment"
+            eks_cluster_name: "auth-cluster"
+          - name: Analytics
+            dir: analytics
+            repo: mla-fitnessapp-analytics
+            k8s_deployment_name: "analytics-deployment"
+            eks_cluster_name: "analytics-cluster"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Update kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig --name ${{ matrix.service.eks_cluster_name }}
+
+      - name: Set image version on Kubernetes deployment
+        run: |
+          kubectl set image deployment/${{ matrix.service.k8s_deployment_name }} ${matrix.service.name}=${{ steps.login-ecr.outputs.registry }}/${{ matrix.service.repo }}:${{ github.event.inputs.version }} --record
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}

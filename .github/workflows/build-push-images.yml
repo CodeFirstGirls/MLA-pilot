@@ -17,27 +17,59 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     strategy:
+      fail-fast: false
       matrix:
-        service:
+        include:
           - name: Frontend
             dir: frontend
             repo: mla-fitnessapp-fe
+            env_setup: "node"
+            test_command: "npm test"
           - name: Activity Tracking
             dir: activity-tracking
             repo: mla-fitnessapp-activity
+            env_setup: "node"
+            test_command: "npm test"
           - name: AuthService
             dir: authservice
             repo: mla-fitnessapp-authservice
+            env_setup: "java"
+            test_command: "./gradlew test"
           - name: Analytics
             dir: analytics
             repo: mla-fitnessapp-analytics
+            env_setup: "python"
+            test_command: "pytest"
 
     steps:
-      - run: |
-          echo The PR was successfully merged into main.
+      - name: Echo merge success message
+        run: echo "The PR was successfully merged into main."
 
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Node
+        if: matrix.env_setup == 'node'
+        uses: actions/setup-node@v2
+
+      - name: Set up Java
+        if: matrix.env_setup == 'java'
+        uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: "11"
+
+      - name: Set up Python
+        if: matrix.env_setup == 'python'
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install and test ${{ matrix.name }}
+        run: |
+          cd ${{ matrix.dir }}
+          # Here, you can add installation commands specific to each service, if needed
+          ${{ matrix.test_command }}  # Run tests
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -50,12 +82,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push image to Amazon ECR (${{ matrix.service.name }})
+      - name: Build, tag, and push image to Amazon ECR (${{ matrix.name }})
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ matrix.service.repo }}
+          ECR_REPOSITORY: ${{ matrix.repo }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd ${{ matrix.service.dir }}
+          cd ${{ matrix.dir }}
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
