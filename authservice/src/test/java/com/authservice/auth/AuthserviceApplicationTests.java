@@ -15,6 +15,6 @@ class AuthserviceApplicationTests {
 		user.setUsername("test");
 		user.setPassword("password");
 		System.out.println("Testing that the user name is valid");
-		Assertions.assertEquals(user.getUsername(), "test2");
+		Assertions.assertEquals(user.getUsername(), "test");
 	}
 }
