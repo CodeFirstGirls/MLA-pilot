@@ -3,7 +3,7 @@
 
 This guide will help you set up a basic testing environment for JavaScript using Jest, a delightful JavaScript Testing Framework with a focus on simplicity.
 
-## Step 1: Initialize Your Project
+## Step 1: Initialise Your Project
 
 First, create a new directory for your project and navigate into it:
 
@@ -12,7 +12,7 @@ mkdir my-jest-project
 cd my-jest-project
 ```
 
-Then, initialize a new Node.js project:
+Then, initialise a new Node.js project:
 
 ```bash
 npm init -y
