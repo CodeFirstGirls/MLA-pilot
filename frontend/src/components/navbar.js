@@ -6,7 +6,7 @@ const NavbarComponent = ({ onLogout }) => {
   const navigate = useNavigate();
 
   const onNavigate = (route) => {
-    console.log('Navigating to:', route);  
+    console.log('Navigating to:', route);
     switch(route) {
       case 'TrackExercise':
         navigate('/trackExercise');
@@ -22,6 +22,14 @@ const NavbarComponent = ({ onLogout }) => {
     }
   };
 
+
+  const handleLogout = () => { 
+    const isConfirmed = window.confirm("Do you want to logout?")
+    if (isConfirmed) { 
+      onLogout()
+    }
+  }
+
   return (
     <Navbar className="nav-back custom-navbar" expand="lg">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -31,7 +39,7 @@ const NavbarComponent = ({ onLogout }) => {
           <Nav.Link className="custom-nav-link" onClick={() => onNavigate('TrackExercise')}>Track New Exercise</Nav.Link>
           <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Statistics')}>Statistics</Nav.Link>
           <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Journal')}>Weekly Journal</Nav.Link>
-          <Nav.Link className="custom-nav-link" onClick={onLogout}>Logout</Nav.Link>
+          <Nav.Link className="custom-nav-link" onClick={handleLogout}>Logout</Nav.Link>
         </Nav>
         </Nav>
       </Navbar.Collapse>
@@ -40,3 +48,5 @@ const NavbarComponent = ({ onLogout }) => {
 };
 
 export default NavbarComponent;
+
+
