@@ -32,7 +32,17 @@
     margin: 0;
 }
 
-.total-duration {
+.total-duration{
+    display: inline;
+    margin-left: 5px;
+}
+
+.total-distance {
+    display: inline;
+    margin-left: 5px;
+}
+
+.average-level_of_effort {
     display: inline;
     margin-left: 5px;
 }

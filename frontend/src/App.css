@@ -94,6 +94,16 @@ input#duration {
   margin: auto; 
 }
 
+input#distance {
+  width: 20%; 
+  margin: auto; 
+}
+
+input#levelOfEffort {
+  width: 20%; 
+  margin: auto; 
+}
+
 .form-margin {
   margin-top: 30px;
   margin-bottom: 30px;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import FormRange from 'react-bootstrap/FormRange';
 import { trackExercise } from '../api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,6 +17,8 @@ const TrackExercise = ({ currentUser }) => {
     exerciseType: '',
     description: '',
     duration: 0,
+    distance: 0,
+    levelOfEffort: 0,
     date: new Date(),
   });
   const [message, setMessage] = useState(''); 
@@ -36,6 +39,8 @@ const TrackExercise = ({ currentUser }) => {
         exerciseType: '',
         description: '',
         duration: 0,
+        distance: 0,
+        levelOfEffort: '',
         date: new Date(),
       });
 
@@ -94,8 +99,24 @@ const TrackExercise = ({ currentUser }) => {
             required 
             value={state.duration} 
             onChange={(e) => setState({ ...state, duration: e.target.value })}
+            min={1}
           />
         </Form.Group>
+        <Form.Group controlId="distance" style={{ marginBottom: '40px' }}>
+          <Form.Label>Distance (in km):</Form.Label>
+          <Form.Control 
+            type="number" 
+            required 
+            value={state.distance} 
+            onChange={(e) => setState({ ...state, distance: e.target.value })}
+            min={0.00}
+            step="0.01"
+          />
+        </Form.Group>
+        <div style={{ marginBottom: '40px' }}></div>
+        <Form.Label>Level of Effort (left = easy, right = hard)</Form.Label>
+        <Form.Range onChange={(e) => setState({ ...state, levelOfEffort: e.target.value })} />
+        <div style={{ marginBottom: '40px' }}></div>
         <Button variant="success" type="submit">
           Save activity
         </Button>

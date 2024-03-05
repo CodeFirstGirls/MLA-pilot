@@ -39,6 +39,12 @@ const Journal = ({ currentUser }) => {
     setEndDate(moment(endDate).add(1, 'weeks').endOf('week').toDate());
   };
 
+  const convertToMinSecs = (seconds) => {
+    const result = new Date(seconds * 1000).toISOString().substring(14, 19);
+
+    return result; 
+  }
+
   return (
     <div className="journal-container">
       <h4>Weekly Exercise Journal</h4>
@@ -52,7 +58,7 @@ const Journal = ({ currentUser }) => {
         {exercises && exercises.length > 0 ? (
           exercises.map((exercise, index) => (
             <li key={index} className="exercise-journal-data">
-              {exercise.exerciseType} - {exercise.totalDuration} minutes
+              {exercise.exerciseType} - {exercise.totalDuration} minutes - {exercise.totalDistance} km - {convertToMinSecs(exercise.avgPace)} avg per km
             </li>
           ))
         ) : (

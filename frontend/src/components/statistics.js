@@ -18,6 +18,25 @@ const Statistics = ({ currentUser }) => {
   }, [currentUser]);
 
   const currentUserData = data.find(item => item.username === currentUser);
+  
+  const convertToMinSecs = (seconds) => {
+    const result = new Date(seconds * 1000).toISOString().substring(14, 19);
+    return result; 
+  }
+
+  const getLevelOfEffortLabel = (levelOfEffort) => {
+     if (levelOfEffort >= 80) {
+       return 'Very High Effort';
+     } else if (levelOfEffort >= 60) {
+       return 'High Effort';
+     } else if (levelOfEffort >= 40) {
+       return 'Moderate Effort';
+     } else if (levelOfEffort >= 20) {
+       return 'Low Effort';
+     } else {
+       return 'Very Low Effort';
+      }
+    };
 
   return (
     <div className="stats-container">
@@ -27,6 +46,9 @@ const Statistics = ({ currentUser }) => {
           <div key={index} className="exercise-data">
             <div><strong>{item.exerciseType}</strong></div>
             <div>Total Duration: {item.totalDuration} min</div>
+            <div>Total Distance: {item.totalDistance} km</div>
+            <div>Avg Pace: {convertToMinSecs(item.avgPace)} per km</div>
+            <div>Avg Effort: {getLevelOfEffortLabel(item.avgLevelOfEffort)}</div>
           </div>
         ))
       ) : (

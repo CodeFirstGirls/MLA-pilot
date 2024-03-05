@@ -19,6 +19,18 @@ const exerciseSchema = new Schema(
         },
         min: [1, 'Duration should be positive.']
     },
+    distance: { 
+      type: Number, 
+      required: true,
+      validate: {
+          validator: function(value) {
+              return !isNaN(value);
+          },
+          message: 'Distance should be a number.'
+        },
+      min: [0, 'Distance should be positive or zero.']
+    },
+    levelOfEffort: { type: Number, required: true},
     date: { type: Date, required: true },
   },
   { timestamps: true }
