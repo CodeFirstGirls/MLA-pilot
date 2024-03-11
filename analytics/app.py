@@ -110,7 +110,7 @@ def weekly_user_stats():
     start_date_str = request.args.get('start')
     end_date_str = request.args.get('end')
 
-    date_format = "%Y-%m-%d"
+    date_format = "%d-%m-%Y"
     try:
         start_date = datetime.strptime(start_date_str, date_format)
         end_date = datetime.strptime(end_date_str, date_format) + timedelta(days=1)  # Include the whole end day

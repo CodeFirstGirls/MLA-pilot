@@ -49,6 +49,7 @@ const Login = ({ onLogin }) => {
             type="password" 
             placeholder="Password" 
             value={password} 
+            
             onChange={(e) => setPassword(e.target.value)} 
           />
         </Form.Group>

@@ -7,7 +7,7 @@ const exerciseSchema = new Schema(
     exerciseType: {
       type: String,
       required: true,
-      enum: ['Running', 'Cycling', 'Swimming', 'Gym', 'Other']
+      enum: ['Running', 'Cycling', 'Swimming', 'Gym', 'Rowing', 'Football', 'Skiing', 'Horse Riding', 'Surfing', 'Golf', 'Climbing','Other']
     },
     description: { type: String, required: false },
     duration: { 
@@ -19,7 +19,32 @@ const exerciseSchema = new Schema(
         },
         min: [1, 'Duration should be positive.']
     },
+    distance: { 
+      type: Number, 
+      required: false,
+      min: [0, 'Distance should be positive.']
+    },
+    speed: { 
+      type: Number, 
+      required: false,
+      min: [0, 'Speed should be positive.']
+    },
+    sets: { 
+      type: Number, 
+      required: false,
+      min: [0, 'Sets should be positive.']
+    },
+    reps: { 
+      type: Number, 
+      required: false,
+      min: [0, 'Reps should be positive.']
+    },
     date: { type: Date, required: true },
+    mood: {
+      type: String,
+      required: true,
+      enum: ['Happy', 'Neutral', 'Difficult', 'Painful', 'Tiring']
+    },
   },
   { timestamps: true }
 );

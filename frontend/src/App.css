@@ -69,6 +69,10 @@ p.successMessage {
   border-radius: 5px; 
 }
 
+.custom-nav-link:active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .btn-primary {
   background-color: #F54996 !important;
   border-color: #F54996ff !important;
@@ -89,9 +93,57 @@ p.successMessage {
   border-color: #F54996ff !important; 
 }
 
+.invisible {
+  display: none;
+  max-height: none;
+}
+
 input#duration {
   width: 20%; 
   margin: auto; 
+}
+
+input#distance {
+  width: 20%; 
+  margin: auto; 
+}
+
+input#speed {
+  width: 20%; 
+  margin: auto;
+  background-color: #d3d3d3;
+  outline-color: #6c757d;
+}
+
+input#sets {
+  width: 20%; 
+  margin: auto; 
+}
+
+input#reps {
+  width: 20%; 
+  margin: auto; 
+}
+
+input#description {
+  width: 50%; 
+  margin: auto; 
+}
+
+div#div-other {
+  margin-bottom: 20px;
+}
+
+div#other-label {
+  margin-bottom: 30px;
+}
+
+p#other-exercise {
+  font-weight: bold;
+  background-color: #3f51b5;
+  color: white;
+  max-width: fit-content;
+  margin: auto;
 }
 
 .form-margin {

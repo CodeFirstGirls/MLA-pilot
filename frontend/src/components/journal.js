@@ -11,7 +11,7 @@ const Journal = ({ currentUser }) => {
 
   const fetchExercises = async () => {
     try {
-      const url = `http://localhost:5050/stats/weekly/?user=${currentUser}&start=${moment(startDate).format('YYYY-MM-DD')}&end=${moment(endDate).format('YYYY-MM-DD')}`;
+      const url = `http://localhost:5050/stats/weekly/?user=${currentUser}&start=${moment(startDate).format('DD-MM-YYYY')}&end=${moment(endDate).format('DD-MM-YYYY')}`;
       const response = await axios.get(url);
       console.log('API Response:', response.data);
       if (response.data.stats && Array.isArray(response.data.stats)) {
@@ -45,7 +45,7 @@ const Journal = ({ currentUser }) => {
       <br></br>
       <div className="date-range">
         <Button className="button-small" onClick={goToPreviousWeek}>&larr; Previous</Button>
-        <span>{moment(startDate).format('YYYY-MM-DD')} to {moment(endDate).format('YYYY-MM-DD')}</span>
+        <span>{moment(startDate).format('DD-MM-YYYY')} to {moment(endDate).format('DD-MM-YYYY')}</span>
         <Button className="button-small" onClick={goToNextWeek}>Next &rarr;</Button>
         </div>
       <ul>

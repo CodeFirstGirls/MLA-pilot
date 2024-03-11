@@ -1,27 +1,15 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch Node.js Program",
-            "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}/app.js",
-            "preLaunchTask": "npm: install",
-            "outFiles": ["${workspaceFolder}/out/**/*.js"]
-        },
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch) - Current File",
-            "request": "launch",
-            "mainClass": "${file}"
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:80",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

@@ -1,11 +1,17 @@
 package com.authservice.auth.controller;
 
-import com.authservice.auth.model.User;
-import com.authservice.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.authservice.auth.model.User;
+import com.authservice.auth.repository.UserRepository;
+import com.authservice.auth.service.SignUpService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -18,8 +24,17 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SignUpService signUpService;
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
+        //Code by Namrata
+        //updated by Mohsina
+        if (!signUpService.validatePassword(user.getPassword())) {
+            return ResponseEntity.badRequest().body("Password must be 6-12 characters long and contain at least one uppercase letter, one digit and one special character");
+        }
+        //Code finishes
         if (userRepository.existsByUsername(user.getUsername())) {
             return ResponseEntity.badRequest().body("User already exists - please log in");
         }
