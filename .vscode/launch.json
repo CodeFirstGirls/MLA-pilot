@@ -2,13 +2,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Node.js Program",
-            "skipFiles": ["<node_internals>/**"],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
             "program": "${workspaceFolder}/app.js",
             "preLaunchTask": "npm: install",
-            "outFiles": ["${workspaceFolder}/out/**/*.js"]
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ]
         },
         {
             "name": "Python: Current File",

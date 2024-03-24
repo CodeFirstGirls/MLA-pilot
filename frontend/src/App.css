@@ -21,20 +21,28 @@ body {
 
 .App {
   text-align: center;
-  max-width: 650px;
+  max-width: 750px;
   margin: auto;
   padding: 20px;
+}
+
+.appTitle header {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+  margin-bottom: 20px; /* Adjust spacing */
 }
 
 .appTitle h1 {
   color: #F54996ff;
   font-size: 36px;
-  margin: 40px 0 40px 0;
+  margin-left: 20px; /* Adjust spacing between h1 and img */
 }
 
-.appTitle {
-  margin: 40px 0 40px 0;
-  text-align: center;
+#appLogo {
+  width: 50px; /* Adjust the width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Add space between h1 and img */
 }
 
 form {
@@ -90,6 +98,11 @@ p.successMessage {
 }
 
 input#duration {
+  width: 20%; 
+  margin: auto; 
+}
+
+input#distance {
   width: 20%; 
   margin: auto; 
 }

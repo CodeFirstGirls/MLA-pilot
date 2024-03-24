@@ -1,11 +1,25 @@
 version: '3.8'
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - frontend
+      - activity-tracking
+      - analytics
+      - authservice
+    networks:
+      - app-network
+
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "80:80"
+    environment:
+      - REACT_APP_API_GATEWAY_URL=nginx
     networks:
       - app-network
 
@@ -15,8 +29,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
-    ports:
-      - "5300:5300"
+      - MONGO_DB=activity
+      - MONGO_URI=mongodb://root:cfgmla23@mongodb:27017
     depends_on:
       - mongodb
     networks:
@@ -28,9 +42,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
+      - MONGO_DB=activity
       - MONGO_URI=mongodb://root:cfgmla23@mongodb:27017
-    ports:
-      - "5050:5050"
     depends_on:
       - mongodb
     networks:
@@ -41,10 +54,8 @@ services:
       context: ./authservice
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATA_MONGODB_DATABASE=test
+      - SPRING_DATA_MONGODB_DATABASE=authservice
       - SPRING_DATA_MONGODB_URI=mongodb://root:cfgmla23@mongodb:27017
-    ports:
-      - "8080:8080"
     depends_on:
       - mongodb
     networks:

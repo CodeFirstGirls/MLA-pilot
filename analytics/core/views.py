@@ -1,35 +1,27 @@
-from dotenv import load_dotenv
-from flask import Flask, render_template, jsonify, request
-from pymongo import MongoClient
-from flask_pymongo import PyMongo
-from flask_cors import CORS
-from urllib.parse import quote_plus
+from flask import current_app as app
+from core.gql_schema import schema
+from core.models import mongo
+from flask import Blueprint
+from flask import jsonify, request
 from bson import json_util
 import traceback
 import logging
-import os
 from datetime import datetime, timedelta
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}},
-     methods="GET,HEAD,POST,OPTIONS,PUT,PATCH,DELETE")
+from ariadne.explorer import ExplorerGraphiQL
+from ariadne import graphql_sync
 
-load_dotenv()
-mongo_uri = os.getenv('MONGO_URI')
-mongo_db = os.getenv('MONGO_DB')
-
-client = MongoClient(mongo_uri)
-db = client[mongo_db]
+stats_page = Blueprint('stats_page', __name__)
 
 
-@app.route('/')
+@stats_page.route('/')
 def index():
-    exercises = db.exercises.find()
+    exercises = mongo.db.exercises.find()
     exercises_list = list(exercises)
     return json_util.dumps(exercises_list)
 
 
-@app.route('/stats')
+@stats_page.route('/stats')
 def stats():
     pipeline = [
         {
@@ -61,11 +53,11 @@ def stats():
         }
     ]
 
-    stats = list(db.exercises.aggregate(pipeline))
+    stats = list(mongo.db.exercises.aggregate(pipeline))
     return jsonify(stats=stats)
 
 
-@app.route('/stats/<username>', methods=['GET'])
+@stats_page.route('/stats/<username>', methods=['GET'])
 def user_stats(username):
     pipeline = [
         {
@@ -100,11 +92,11 @@ def user_stats(username):
         }
     ]
 
-    stats = list(db.exercises.aggregate(pipeline))
+    stats = list(mongo.db.exercises.aggregate(pipeline))
     return jsonify(stats=stats)
 
 
-@app.route('/stats/weekly/', methods=['GET'])
+@stats_page.route('/stats/weekly/', methods=['GET'])
 def weekly_user_stats():
     username = request.args.get('user')
     start_date_str = request.args.get('start')
@@ -113,9 +105,12 @@ def weekly_user_stats():
     date_format = "%Y-%m-%d"
     try:
         start_date = datetime.strptime(start_date_str, date_format)
-        end_date = datetime.strptime(end_date_str, date_format) + timedelta(days=1)  # Include the whole end day
+        # Include the whole end day
+        end_date = datetime.strptime(
+            end_date_str, date_format) + timedelta(days=1)
 
-        logging.info(f"Fetching weekly stats for user: {username} from {start_date} to {end_date}")
+        logging.info(
+            f"Fetching weekly stats for user: {username} from {start_date} to {end_date}")
     except Exception as e:
         logging.error(f"Error parsing dates: {e}")
         return jsonify(error="Invalid date format"), 400
@@ -148,14 +143,28 @@ def weekly_user_stats():
     ]
 
     try:
-        stats = list(db.exercises.aggregate(pipeline))
+        stats = list(mongo.db.exercises.aggregate(pipeline))
         return jsonify(stats=stats)
     except Exception as e:
-        current_app.logger.error(f"An error occurred while querying MongoDB: {e}")
+        app.logger.error(
+            f"An error occurred while querying MongoDB: {e}")
         traceback.print_exc()
         return jsonify(error="An internal error occurred"), 500
 
 
+explorer_html = ExplorerGraphiQL().html(None)
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5050)
+
+@stats_page.route('/stats/graphql', methods=["GET"])
+def graphql_explorer():
+    return explorer_html, 200
+
+
+@stats_page.route("/stats/graphql", methods=["POST"])
+def graphql_server():
+    data = request.get_json()
+    success, result = graphql_sync(
+        schema, data, context_value={"request": request}, debug=app.debug
+    )
+    status_code = 200 if success else 400
+    return jsonify(result), status_code

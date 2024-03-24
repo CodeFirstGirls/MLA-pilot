@@ -1,4 +1,4 @@
-name: Deploy to AWS ECR
+name: Build and Deploy all services to AWS ECR
 
 on:
   push:

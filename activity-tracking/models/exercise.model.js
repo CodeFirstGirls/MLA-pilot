@@ -19,6 +19,11 @@ const exerciseSchema = new Schema(
         },
         min: [1, 'Duration should be positive.']
     },
+    distance: { 
+      type: Number, 
+      required: false,
+      min: [0, 'Distance should be positive.']
+    },
     date: { type: Date, required: true },
   },
   { timestamps: true }

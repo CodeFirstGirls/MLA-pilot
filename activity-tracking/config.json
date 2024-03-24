@@ -1,4 +1,4 @@
 {
-    "mongoUri": "mongodb://root:cfgmla23@mongodb:27017"
-  }
-  
+  "mongoUri": "mongodb://root:cfgmla23@localhost:27017",
+  "mongoDb": "activity"
+}
