@@ -35,6 +35,9 @@ app.use('/exercises', exercisesRouter);
 const weeklyTargetsRouter = require('./routes/weeklytargets');
 app.use('/targets', weeklyTargetsRouter);
 
+const userProfileRouter = require('./routes/userprofiles');
+app.use('/userprofiles', userProfileRouter);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
