@@ -7,6 +7,7 @@ console.log(
 
 const Exercise = require('./models/exercise.model')
 const WeeklyTarget = require('./models/weeklytarget.model')
+const UserProfile = require('./models/userprofile.model');
 const moment = require('moment')
 
 const config = require('./config.json');
@@ -27,6 +28,7 @@ async function main() {
 
     await createExercises();
     await createWeeklyTargets();
+    await createUserProfiles();
 
     console.log("Debug: Closing mongoose");
     mongoose.connection.close();
@@ -63,4 +65,30 @@ async function weeklyTargetInstanceCreate(username, runningTarget, cyclingTarget
     })
     await new_targets.save();
     console.log(`Added new targets for ${username} for week ${weekStartDate}`);
+}
+
+async function createUserProfiles() {
+    var today = new Date();
+    var todayMinusTwelveWeeks = new Date();
+    todayMinusTwelveWeeks.setDate(todayMinusTwelveWeeks.getDate() - 84);
+
+    await Promise.all([
+        userProfileInstanceCreate('user1', 25, 160, 60, today),
+        userProfileInstanceCreate('user1', 25, 160, 65, todayMinusTwelveWeeks),
+        userProfileInstanceCreate('testuser', 45, 180, 70, today),
+        userProfileInstanceCreate('testuser', 45, 180, 75, todayMinusTwelveWeeks),
+    ])
+}
+
+async function userProfileInstanceCreate(username, age, height, weight, dateMeasured) {
+
+    const new_user_profiles = new UserProfile({
+        username: username,
+        age: age,
+        height: height,
+        weight: weight,
+        dateMeasured: dateMeasured,
+    })
+    await new_user_profiles.save();
+    console.log(`Added new profiles for ${username} for date ${dateMeasured}`);
 }
