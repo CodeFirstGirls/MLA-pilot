@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // GET: Retrieve userprofiles for a user by username
 router.get('/user/:username', async (req, res) => {
     try {
-        const userprofiles = await UserProfile.find({ "username": req.params.username });
+        const userprofiles = await UserProfile.find({ "username": req.params.username }).sort({ dateMeasured: 'desc' });
         res.json(userprofiles);
     } catch (error) {
         res.status(400).json({ error: 'Error:' + error.message });
