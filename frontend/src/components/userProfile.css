@@ -1,0 +1,110 @@
+.userProfileContainer{
+    margin: auto;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.th {
+    padding: 0;
+}
+
+.control {
+    width: 100%;
+    padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+
+    @mixin hover {
+        background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    }
+}
+
+.icon {
+    width: rem(21px);
+    height: rem(21px);
+    border-radius: rem(21px);
+}
+
+.item {
+    border-radius: var(--mantine-radius-md);
+    border: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-xl);
+    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-5));
+    margin-bottom: var(--mantine-spacing-sm);
+  }
+  
+  /* Style for the overall modal */
+.modal {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Style for the modal content */
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+} 
+
+
+/* Style for the modal header */
+.modal-header {
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 10px;
+}
+
+/* Style for the modal title */
+.modal-title {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Style for the form labels */
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+/* Style for the form controls */
+.form-control {
+  width: 100%;
+  padding: 6px 12px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Style for the buttons */
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+/* Additional styles for the date picker */
+.datepicker {
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+/* Style for the ScrollArea */
+.scroll-area {
+  overflow-y: auto;
+  padding: 15px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import { IconHeartPlus, IconChartInfographic, IconNotebook, IconFilePencil, IconLogout } from '@tabler/icons-react';
+import { IconUser,IconHeartPlus, IconChartInfographic, IconNotebook, IconFilePencil, IconLogout } from '@tabler/icons-react';
 import { Group } from '@mantine/core';
 import logo from '../img/CFG_logo.png';
 
@@ -11,6 +11,7 @@ const NavbarComponent = ({ onLogout }) => {
     { link: '/statistics', label: 'Statistics', icon: IconChartInfographic },
     { link: '/journal', label: 'Weekly Journal', icon: IconNotebook },
     { link: '/manage', label: 'Manage', icon: IconFilePencil },
+    { link: '/userProfile', label: 'User Details', icon: IconUser },
     { label: 'Logout', icon: IconLogout },
   ];
 

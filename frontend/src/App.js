@@ -14,7 +14,7 @@ import Signup from './components/signup';
 import Journal from './components/journal';
 import Manage from './components/manage';
 import logo from './img/CFG_logo.png'; // Update the path to your logo file
-
+import UserProfile from './components/userProfile';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,6 +48,7 @@ function App() {
                 <Route path="/statistics" element={isLoggedIn ? <Statistics currentUser={currentUser} /> : <Navigate to="/login" />} />
                 <Route path="/journal" element={isLoggedIn ? <Journal currentUser={currentUser} /> : <Navigate to="/login" />} />
                 <Route path="/manage" element={isLoggedIn ? <Manage currentUser={currentUser} /> : <Navigate to="/login" />} />
+                <Route path="/userProfile" element={isLoggedIn ? <UserProfile currentUser={currentUser} /> : <Navigate to="/login" />} />
                 <Route path="/" element={isLoggedIn ? <Navigate to="/trackExercise" /> : <Navigate to="/login" />} />
               </Routes>
             </div>
