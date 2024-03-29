@@ -77,7 +77,7 @@ router.put('/update/:id', async (req, res) => {
             return;
         }
         const userprofile = await UserProfile.findById(req.params.id);
-        if (!userprofiles) {
+        if (!userprofile) {
             res.status(404).json({ error: 'User Profile not found.' });
             return;
         }
