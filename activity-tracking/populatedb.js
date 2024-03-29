@@ -73,18 +73,17 @@ async function createUserProfiles() {
     todayMinusTwelveWeeks.setDate(todayMinusTwelveWeeks.getDate() - 84);
 
     await Promise.all([
-        userProfileInstanceCreate('user1', 25, 160, 60, today),
-        userProfileInstanceCreate('user1', 25, 160, 65, todayMinusTwelveWeeks),
-        userProfileInstanceCreate('testuser', 45, 180, 70, today),
-        userProfileInstanceCreate('testuser', 45, 180, 75, todayMinusTwelveWeeks),
+        userProfileInstanceCreate('user1', 160, 60, today),
+        userProfileInstanceCreate('user1', 160, 65, todayMinusTwelveWeeks),
+        userProfileInstanceCreate('testuser', 180, 70, today),
+        userProfileInstanceCreate('testuser', 180, 75, todayMinusTwelveWeeks),
     ])
 }
 
-async function userProfileInstanceCreate(username, age, height, weight, dateMeasured) {
+async function userProfileInstanceCreate(username, height, weight, dateMeasured) {
 
     const new_user_profiles = new UserProfile({
         username: username,
-        age: age,
         height: height,
         weight: weight,
         dateMeasured: dateMeasured,

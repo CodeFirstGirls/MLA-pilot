@@ -4,11 +4,6 @@ const { Schema } = mongoose;
 const userProfileSchema = new Schema(
     {
         username: { type: String, required: true },
-        age: {
-            type: Number,
-            min: [12, 'Age must be at least 12 years old, got {VALUE}'],
-            max: [150, 'Age must be no more than 150, got {VALUE}']
-        },
         height: {
             type: Number,
             min: [100, 'Height must be at least 100cm, got {VALUE}'],

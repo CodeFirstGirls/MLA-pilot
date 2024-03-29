@@ -39,9 +39,9 @@ router.get('/:id', async (req, res) => {
 // POST: Add a new userprofile
 router.post('/add', async (req, res) => {
     try {
-        const { username, age, height, weight, dateMeasured } = req.body;
+        const { username, height, weight, dateMeasured } = req.body;
         const newUserProfile = new UserProfile({
-            username, age, height, weight,
+            username, height, weight,
             dateMeasured: Date.parse(dateMeasured)
         });
 
@@ -69,10 +69,10 @@ router.delete('/:id', async (req, res) => {
 // PUT: Update a userprofile by id
 router.put('/update/:id', async (req, res) => {
     try {
-        const { username, age, height, weight, dateMeasured } = req.body;
+        const { username, height, weight, dateMeasured } = req.body;
 
 
-        if (!username || !age || !height || !weight || !dateMeasured) {
+        if (!username || !height || !weight || !dateMeasured) {
             res.status(400).json({ error: 'All fields are required for an update.' });
             return;
         }
@@ -83,7 +83,6 @@ router.put('/update/:id', async (req, res) => {
         }
 
         userprofile.username = username;
-        userprofile.age = age;
         userprofile.height = height;
         userprofile.weight = weight;
         userprofile.dateMeasured = Date.parse(dateMeasured);
