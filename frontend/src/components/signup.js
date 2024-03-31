@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import config from '../config';
+import logo from '../img/CFG_logo.png';
+import '../App.css'
 
 const Signup = ({ onSignup }) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -12,13 +15,26 @@ const Signup = ({ onSignup }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  //function to check if the password meets the criteria or not
+  const isPasswordValid = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+    return regex.test(password);
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
 
+    const { username, password } = formData;
+
+    //If password doesn't meet the criteria it shows the error message
+    if (!isPasswordValid(password)) {
+      setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+      return;
+    }
+
     try {
-        const response = await axios.post('http://localhost:8080/api/auth/signup', formData);
+        const response = await axios.post(`${config.apiUrl}/auth/signup`, formData);
 
         if (response.data === 'User registered successfully!') {
             console.log('User registered successfully');
@@ -34,7 +50,13 @@ const Signup = ({ onSignup }) => {
 
 
   return (
-    <div>
+    <div className="login-container">
+      <div className="appTitleLogin">
+        <header>
+          <img src={logo} alt="CFG Fitness App Logo" id="appLogo" />
+          <h1>MLA Fitness App</h1>
+        </header>
+      </div>
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Form onSubmit={handleSignup}>

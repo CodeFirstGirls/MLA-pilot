@@ -1,40 +1,46 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { IconHeartPlus, IconChartInfographic, IconNotebook, IconFilePencil, IconLogout } from '@tabler/icons-react';
+import { Group } from '@mantine/core';
+import logo from '../img/CFG_logo.png';
 
 const NavbarComponent = ({ onLogout }) => {
-  const navigate = useNavigate();
+  const data = [
+    { link: '/trackExercise', label: 'Track New Exercise', icon: IconHeartPlus },
+    { link: '/statistics', label: 'Statistics', icon: IconChartInfographic },
+    { link: '/journal', label: 'Weekly Journal', icon: IconNotebook },
+    { link: '/manage', label: 'Manage', icon: IconFilePencil },
+    { label: 'Logout', icon: IconLogout },
+  ];
 
-  const onNavigate = (route) => {
-    console.log('Navigating to:', route);  
-    switch(route) {
-      case 'TrackExercise':
-        navigate('/trackExercise');
-        break;
-      case 'Statistics':
-        navigate('/statistics');
-        break;
-      case 'Journal':
-        navigate('/journal');
-        break;
-      default:
-        console.error('Invalid route:', route);
-    }
+  const handleLogout = () => {
+    onLogout();
   };
 
   return (
-    <Navbar className="nav-back custom-navbar" expand="lg">
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-        <Nav>
-          <Nav.Link className="custom-nav-link" onClick={() => onNavigate('TrackExercise')}>Track New Exercise</Nav.Link>
-          <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Statistics')}>Statistics</Nav.Link>
-          <Nav.Link className="custom-nav-link" onClick={() => onNavigate('Journal')}>Weekly Journal</Nav.Link>
-          <Nav.Link className="custom-nav-link" onClick={onLogout}>Logout</Nav.Link>
+    <Navbar className="navbar" expand="lg">
+      <div className="navbarMain">
+        <Group id="header" align="center">
+          <img src={logo} alt="CFG Fitness App Logo" id="appLogo" />
+          <h3 id="appTitle">MLA Fitness App</h3>
+        </Group>
+        <Nav className="mr-auto flex-column navComponent">
+          {data.map((item, index) => (
+            item.label === 'Logout' ? (
+              <Nav.Link key={index} id="navLink" onClick={handleLogout}>
+                <item.icon className="linkIcon" stroke={1.5} />
+                <span>{item.label}</span>
+              </Nav.Link>
+            ) : (
+              <Link key={index} id="navLink" to={item.link}>
+                <item.icon className="linkIcon" stroke={1.5} />
+                <span>{item.label}</span>
+              </Link>
+            )
+          ))}
         </Nav>
-        </Nav>
-      </Navbar.Collapse>
+      </div>
     </Navbar>
   );
 };

@@ -21,6 +21,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	// Micrometer Prometheus registry for exposing metrics
+    implementation("io.micrometer:micrometer-registry-prometheus")
+    // Spring Boot Actuator for metrics endpoint
+    implementation ("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 tasks.withType<Test> {

@@ -4,7 +4,7 @@ describe('Exercise API', () => {
   it('Add a new exercise', () => {
     cy.request({
       method: 'POST',
-      url: 'http://localhost:5300/exercises/add',
+      url: 'http://localhost/exercises/add',
       body: {
         username: 'testuser',
         exerciseType: 'Running',
@@ -20,7 +20,7 @@ describe('Exercise API', () => {
   });
 
   it('Retrieve all exercises', () => {
-    cy.request('http://localhost:5300/exercises').then((response) => {
+    cy.request('http://localhost/exercises').then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.length.greaterThan(0);
     });
