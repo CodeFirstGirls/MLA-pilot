@@ -7,6 +7,7 @@ import config from '../config';
 import { Table, Text, ScrollArea, rem, ActionIcon, Flex, Tooltip } from '@mantine/core';
 import { IconChevronDown, IconChevronUp, IconEdit, IconTrash, IconPlus } from '@tabler/icons-react';
 import moment from 'moment';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend } from 'recharts'; // Add recharts components
 
 const UserProfile = ({ currentUser }) => {
   const [userProfiles, setUserProfiles] = useState([]);
@@ -105,14 +106,28 @@ const UserProfile = ({ currentUser }) => {
 
   const handleAddOrUpdate = async () => {
     try {
-        if (formData._id) {
-          await updateUserProfile(formData._id, formData);
-        } else {
-          await addUserProfile(formData);
-        }
-        handleCloseModal();
-      }  
-    catch (error) {
+      if (!formData.height || !formData.weight) {
+        setError('Please enter both height and weight.');
+        return;
+      }
+  
+      if (formData.height < 100 || formData.height > 300) {
+        setError('Height must be between 100 and 300 cm.');
+        return;
+      }
+  
+      if (formData.weight <= 0) {
+        setError('Weight must be greater than 0.');
+        return;
+      }
+  
+      if (formData._id) {
+        await updateUserProfile(formData._id, formData);
+      } else {
+        await addUserProfile(formData);
+      }
+      handleCloseModal();
+    } catch (error) {
       console.error('Error adding/updating user profile:', error);
     }
   };
@@ -135,27 +150,37 @@ const UserProfile = ({ currentUser }) => {
     }
   };
 
-  const userProfileRows = userProfiles.map((profile, index) => (
-    <Table.Tr key={index} className="user-profile-data">
-      <Table.Td style={{ textAlign: 'center' }}>{profile.height}</Table.Td>
-      <Table.Td style={{ textAlign: 'center' }}>{profile.weight}</Table.Td>
-      <Table.Td style={{ textAlign: 'center' }}>{moment(profile.dateMeasured).format('MMM DD, YYYY')}</Table.Td>
-      <Table.Td style={{ textAlign: 'center' }}>
-        <Flex gap="md" style={{ justifyContent: 'center' }}>
-          <Tooltip label="Edit">
-            <ActionIcon size={25} color='#0072B2' onClick={() => handleOpenModal(profile._id)}>
-              <IconEdit style={{ width: rem(20), height: rem(20) }}/>
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label="Delete">
-            <ActionIcon size={25} color="#882255" onClick={() => deleteUserProfile(profile._id)}>
-              <IconTrash style={{ width: rem(20), height: rem(20) }} />
-            </ActionIcon>
-          </Tooltip>
-        </Flex>
-      </Table.Td>
-    </Table.Tr>
-  ));  
+  const weightChartData = userProfiles.map((profile) => ({
+    date: moment(profile.dateMeasured).format('MMM DD, YYYY'),
+    weight: profile.weight
+  })).sort((a, b) => moment(a.date).unix() - moment(b.date).unix());
+
+  const userProfileRows = userProfiles.map((profile, index) => {
+    const heightInMeters = profile.height / 100;
+    const bmi = (profile.weight / (heightInMeters * heightInMeters)).toFixed(2);
+    return (
+      <Table.Tr key={index} className="user-profile-data">
+        <Table.Td style={{ textAlign: 'center' }}>{profile.height}</Table.Td>
+        <Table.Td style={{ textAlign: 'center' }}>{profile.weight}</Table.Td>
+        <Table.Td style={{ textAlign: 'center' }}>{bmi}</Table.Td>
+        <Table.Td style={{ textAlign: 'center' }}>{moment(profile.dateMeasured).format('MMM DD, YYYY')}</Table.Td>
+        <Table.Td style={{ textAlign: 'center' }}>
+          <Flex gap="md" style={{ justifyContent: 'center' }}>
+            <Tooltip label="Edit">
+              <ActionIcon size={25} color='#0072B2' onClick={() => handleOpenModal(profile._id)}>
+                <IconEdit style={{ width: rem(20), height: rem(20) }}/>
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Delete">
+              <ActionIcon size={25} color="#882255" onClick={() => deleteUserProfile(profile._id)}>
+                <IconTrash style={{ width: rem(20), height: rem(20) }} />
+              </ActionIcon>
+            </Tooltip>
+          </Flex>
+        </Table.Td>
+      </Table.Tr>
+    );
+  });
 
   return (
     <ScrollArea className='userProfileContainer'>
@@ -166,25 +191,40 @@ const UserProfile = ({ currentUser }) => {
       </Button>
     </div>
       <hr/>
-      <Table horizontalSpacing="md" verticalSpacing="md" miw={700} layout="fixed">
-        <Table.Tbody>
-          <Table.Tr>
-            <Th sorted={sortBy === 'height'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('height')}>Height (in cm)</Th>
-            <Th sorted={sortBy === 'weight'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('weight')}>Weight (in Kilos)</Th>
-            <Th sorted={sortBy === 'dateMeasured'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('dateMeasured')}>Date Measured</Th>
-            <Th>Actions</Th>
-          </Table.Tr>
-          {userProfileRows.length > 0 ? (
-            userProfileRows
-          ) : (
-            <Table.Tr>
-              <Table.Td colSpan={4}>
-                <Text fw={500} ta="center">No personal Metrics found for the user.</Text>
-              </Table.Td>
-            </Table.Tr>
-          )}
-        </Table.Tbody>
-      </Table>
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: '1' }}>
+          <Table horizontalSpacing="md" verticalSpacing="md" miw={700} layout="fixed">
+            <Table.Tbody>
+              <Table.Tr>
+                <Th sorted={sortBy === 'height'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('height')}>Height (in cm)</Th>
+                <Th sorted={sortBy === 'weight'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('weight')}>Weight (in Kilos)</Th>
+                <Th sorted={sortBy === 'bmi'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('bmi')}>BMI</Th>
+                <Th sorted={sortBy === 'dateMeasured'} reverseSortDirection={reverseSortDirection} onSort={() => handleSort('dateMeasured')}>Date Measured</Th>
+                <Th>Actions</Th>
+              </Table.Tr>
+              {userProfileRows.length > 0 ? (
+                userProfileRows
+              ) : (
+                <Table.Tr>
+                  <Table.Td colSpan={5}>
+                    <Text fw={500} ta="center">No personal Metrics found for the user.</Text>
+                  </Table.Td>
+                </Table.Tr>
+              )}
+            </Table.Tbody>
+          </Table>
+        </div>
+        <div style={{ flex: '1', marginLeft: '20px' }}> {/* Chart container */}
+          <LineChart width={400} height={300} data={weightChartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" label={{ value: 'Date', position: 'insideBottom', dy: 10 }} /> {/* Add label for x-axis */}
+          <YAxis label={{ value: 'Weight', angle: -90, position: 'insideLeft' }} /> {/* Add label for y-axis */}
+          <RechartsTooltip />
+          <Legend />
+          <Line type="monotone" dataKey="weight" stroke="#8884d8" />
+          </LineChart>
+      </div>
+      </div>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>User Metrics</Modal.Title>
@@ -211,6 +251,7 @@ const UserProfile = ({ currentUser }) => {
               <br />
               <DatePicker selected={formData.dateMeasured} 
               onChange={(date) => setFormData({ ...formData, dateMeasured: date })} dateFormat="yyyy/MM/dd"
+              maxDate={new Date()}
               required />
             </Form.Group>
             <br />

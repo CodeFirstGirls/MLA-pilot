@@ -11,7 +11,7 @@ const NavbarComponent = ({ onLogout }) => {
     { link: '/statistics', label: 'Statistics', icon: IconChartInfographic },
     { link: '/journal', label: 'Weekly Journal', icon: IconNotebook },
     { link: '/manage', label: 'Manage', icon: IconFilePencil },
-    { link: '/userProfile', label: 'User Details', icon: IconUser },
+    { link: '/userProfile', label: 'User Profile', icon: IconUser },
     { label: 'Logout', icon: IconLogout },
   ];
 
