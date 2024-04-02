@@ -1,0 +1,21 @@
+{
+  "stats": [
+    {
+      "exercises": [
+        {
+          "exerciseType": "Running",
+          "totalDuration": 90
+        },
+        {
+          "exerciseType": "Swimming",
+          "totalDuration": 60
+        },
+        {
+          "exerciseType": "Cycling",
+          "totalDuration": 30
+        }
+      ],
+      "username": "test"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+.title {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 900;
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: large;
+  }
+}
+
+.subtitle {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 600;
+}
+
+.loginButton {
+  background: linear-gradient(to right, #fd6580, #fda565);
+}

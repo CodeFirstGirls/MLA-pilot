@@ -1,0 +1,42 @@
+.title {
+  color: white;
+  text-align: center;
+}
+
+.horizontalDivider {
+  width: 90%;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid white;
+  margin-top: 1em;
+  margin-bottom: 3em;
+  padding: 0;
+  justify-self: center;
+}
+.container {
+  background: linear-gradient(to right, #fd6580, #fda565);
+  margin-bottom: var(--mantine-spacing-lg);
+  margin-top: var(--mantine-spacing-md);
+  width: 100%;
+  max-width: 800px;
+  border-radius: 1.6rem;
+  min-height: 40rem;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+}
+.navArrowsGroup {
+  flex-grow: 1;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.alertMessage {
+  color: white;
+}
+.alertRoot {
+  background-color: rgb(228, 29, 52);
+  border-radius: 1.6rem;
+}

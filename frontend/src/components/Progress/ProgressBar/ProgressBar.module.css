@@ -1,0 +1,7 @@
+.container {
+  width: 90%;
+
+  padding-top: var(--mantine-spacing-xs);
+  padding-bottom: var(--mantine-spacing-xs);
+  max-width: 800px;
+}

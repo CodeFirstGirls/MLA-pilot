@@ -1,0 +1,12 @@
+{
+  "stats": [
+    {
+      "exerciseType": "Running",
+      "totalDuration": 45
+    },
+    {
+      "exerciseType": "Swimming",
+      "totalDuration": 105
+    }
+  ]
+}

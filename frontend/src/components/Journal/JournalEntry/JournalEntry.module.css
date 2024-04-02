@@ -1,0 +1,13 @@
+.container {
+  width: 90%;
+  background: white;
+  padding-top: var(--mantine-spacing-sm);
+  padding-bottom: var(--mantine-spacing-sm);
+  margin-bottom: var(--mantine-spacing-sm);
+  max-width: 800px;
+  border-radius: 1.6rem;
+}
+
+.gridColumn {
+  align-items: center;
+}

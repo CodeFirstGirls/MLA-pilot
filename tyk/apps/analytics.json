@@ -1,0 +1,35 @@
+{
+  "name": "Analytics Service",
+  "api_id": "2",
+  "org_id": "default",
+  "definition": {
+    "location": "header",
+    "key": "version"
+  },
+  "custom_middleware": {
+    "pre": [
+      {
+        "name": "testJSVMData",
+        "path": "./middleware/injectHeader.js",
+        "require_session": false,
+        "raw_body_only": false
+      }
+    ]
+  },
+  "auth": {
+    "auth_header_name": "Authorization"
+  },
+  "version_data": {
+    "not_versioned": true,
+    "versions": {
+      "Default": {
+        "name": "Default"
+      }
+    }
+  },
+  "proxy": {
+    "listen_path": "/stats/",
+    "target_url": "http://analytics:5050",
+    "strip_listen_path": false
+  }
+}
