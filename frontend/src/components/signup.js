@@ -20,7 +20,7 @@ const Signup = ({ onSignup }) => {
     try {
         const response = await axios.post('http://localhost:8080/api/auth/signup', formData);
 
-        if (response.data === 'User registered successfully!') {
+        if (response.status === 200) {
             console.log('User registered successfully');
             onSignup(formData.username); 
         } else {
