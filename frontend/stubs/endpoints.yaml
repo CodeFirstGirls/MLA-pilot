@@ -1,0 +1,59 @@
+- request:
+    url: ^/api/auth/login$
+    method: POST
+    json: '{ "username": "test", "password": "test" }'
+  response:
+    - status: 200
+      latency: 1000
+      body: 'User authenticated'
+
+- request:
+    url: ^/api/auth/login$
+    method: POST
+    json: '{ "username": "testDenied", "password": "test" }'
+  response:
+    - status: 401
+      latency: 1000
+      body: 'Invalid credentials'
+
+- request:
+    url: ^/api/auth/signup$
+    method: POST
+    json: '{ "username": "testExists", "password": "test" }'
+  response:
+    - status: 400
+      latency: 1000
+      body: 'User already exists - please log in'
+
+- request:
+    url: ^/api/auth/signup$
+    method: POST
+    json: '{ "username": "testNew", "password": "test" }'
+  response:
+    - status: 200
+      latency: 1000
+      body: 'User registered successfully!'
+
+- request:
+    url: ^/exercises/add$
+    method: POST
+  response:
+    - status: 200
+      latency: 1000
+      body: 'User registered successfully!'
+
+- request:
+    url: ^/stats/weekly
+    method: GET
+  response:
+    - status: 200
+      latency: 1000
+      file: './responses/weekly.json'
+
+- request:
+    url: ^/stats/
+    method: GET
+  response:
+    - status: 200
+      latency: 1000
+      file: './responses/statistics.json'

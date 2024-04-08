@@ -1,0 +1,55 @@
+.title {
+  color: white;
+  text-align: center;
+}
+
+.modalTitle {
+  color: #fd6580;
+}
+/* gradient text for modern browsers */
+@supports (background-clip: text) {
+  .modalTitle {
+    background-image: linear-gradient(to right, #fd6580, #fda565);
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.container {
+  background: linear-gradient(to right, #fd6580, #fda565);
+  margin-top: var(--mantine-spacing-md);
+  margin-bottom: var(--mantine-spacing-lg);
+  width: 100%;
+  max-width: 800px;
+  border-radius: 1.6rem;
+  min-height: 5rem;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  flex-grow: none;
+}
+.navArrowsGroup {
+  flex-grow: 1;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.alertMessage {
+  color: white;
+}
+.alertRoot {
+  background-color: rgb(228, 29, 52);
+  border-radius: 1.6rem;
+}
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  aspect-ratio: 1 / 1;
+}
+.innerGrid {
+  height: 100%;
+}

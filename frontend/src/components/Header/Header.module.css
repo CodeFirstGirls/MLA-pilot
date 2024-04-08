@@ -1,0 +1,48 @@
+.header {
+  height: 5rem;
+  background: linear-gradient(to right, #fd6580, #fda565);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.verticalDivider {
+  width: 1px;
+  height: 4rem;
+  background-color: white;
+}
+.horizontalDivider {
+  width: 90%;
+  background-color: white;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid white;
+  margin: 0;
+}
+.headerButton {
+  background-color: transparent;
+  padding: rem(8px) rem(12px);
+}
+.headerButtonIcon {
+  margin-right: 5px;
+  height: 4rem;
+}
+.drawer {
+  background: linear-gradient(to right, #fd6580, #fda565);
+}
+.mantine-Modal-title {
+  color: #fd6580;
+  text-align: center;
+}
+/* gradient text for modern browsers */
+@supports (background-clip: text) {
+  .mantine-Modal-title {
+    background-image: linear-gradient(to right, #fd6580, #fda565);
+    background-clip: text;
+    color: transparent;
+  }
+}

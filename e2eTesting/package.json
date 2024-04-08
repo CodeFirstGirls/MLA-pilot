@@ -1,0 +1,17 @@
+{
+  "name": "e2etesting",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "open": "cypress open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "latest",
+    "@bahmutov/cypress-esbuild-preprocessor": "latest",
+    "cypress": "latest"
+  }
+}
