@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const url = `${process.env.ANALYTICS_SERVICE_PATH}/stats/weekly/?user=${user}&start=${start}&end=${end}`
   const response = await fetch(url, {
     headers: {
-      'API-Key': process.env.DATA_API_KEY!,
+      Authorization: process.env.TYK_API_KEY,
     },
   })
   return response

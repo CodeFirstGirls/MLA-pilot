@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'API-Key': process.env.DATA_API_KEY!,
+      Authorization: process.env.TYK_API_KEY,
     },
     body: JSON.stringify(body),
   })
