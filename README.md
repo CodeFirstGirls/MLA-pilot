@@ -159,4 +159,9 @@ By default, the services are run behind [Tyk](https://tyk.io/) (used as an API G
 
 To access TYK, the frontend/orchestration needs to use an API Key. This is set as `TYK_API_KEY` in the .env for the frontend, and is set as a header on all requests to tyk. This means that all requests to our services are fully secured through auth, as requests can only get to the service via tyk, and the only way to get the api key is to send a request to the frontend/orchestration with a valid auth token.
 
-If Tyk is giving errors in the logs like `connect: connection refused`, you may need to generate a new api key and place it in the env file for the frontend. To do this, use the cUrl command in the tyk folder, and paste the value of the "key" output as the api key.
+If Tyk is giving errors in the logs like `connect: connection refused`, you may need to generate a new api key and place it in the env file for the frontend. 
+To do this, copy the cUrl command in the tyk folder and run it in your terminal. Paste the value of the "key" output into your .env.local file as the TYK_API_KEY, and this will give the next.js orch the authentication to hit the services through tyk.
+
+## Grafana & Prometheus
+
+All services and the frontend send metrics to Prometheus, and are displayed on a Grafana dashboard. The dashboard is stored as a json file in the `grafana` folder for easy local development.

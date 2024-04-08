@@ -7,7 +7,7 @@ services:
     ports:
       - '3000:3000'
     networks:
-      - app-network
+      - tyk
 
   activity-tracking:
     build:
@@ -85,6 +85,29 @@ services:
     ports:
       - 6379:6379
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus:/etc/prometheus
+    ports:
+      - '9090:9090'
+    networks:
+      - tyk
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - '3100:3000'
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=cfgmla23
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - tyk
+
 networks:
   app-network:
     driver: bridge
@@ -93,3 +116,4 @@ networks:
 
 volumes:
   mongodbdata:
+  grafana_data:
