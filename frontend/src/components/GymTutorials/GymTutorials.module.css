@@ -1,0 +1,11 @@
+.title {
+  color: #fd6580;
+}
+/* gradient text for modern browsers */
+@supports (background-clip: text) {
+  .title {
+    background-image: linear-gradient(to right, #fd6580, #fda565);
+    background-clip: text;
+    color: transparent;
+  }
+}

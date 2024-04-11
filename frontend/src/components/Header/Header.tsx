@@ -3,13 +3,14 @@
 import { useCookies } from 'react-cookie'
 import { Container, Group, Burger, Drawer } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { IconSquarePlus, IconLogout } from '@tabler/icons-react'
+import { IconSquarePlus, IconLogout, IconVideo } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import classes from './Header.module.css'
 import Image from 'next/image'
 import { Modal, Button } from '@mantine/core'
 import { clearCurrentUser } from '../../utils/sessionStorage'
 import AddExerciseModal, { AddExercieModalTitle } from '../AddExerciseModal'
+import GymTutorials from '../GymTutorials';
 
 const Header = () => {
   const router = useRouter()
@@ -28,6 +29,11 @@ const Header = () => {
     openModal()
     closeDrawer()
   }
+  // Function to navigate to the Gym Tutorials page
+  const navigateToGymTutorials = () => {
+    router.push('/GymTutorials');
+    closeDrawer();
+  };
 
   return (
     <>
@@ -40,18 +46,26 @@ const Header = () => {
       </Modal>
       <header className={classes.header}>
         <Container size="md" className={classes.inner}>
-          <Image
-            width={40}
-            height={50}
-            src="/CFG_logo_inverted.png"
-            alt="CFG logo"
-            loading="lazy"
-          />
+        <div className={classes.logoContainer}>
+            <a href="/" className={classes.logoLink}>
+              <Image
+                width={40}
+                height={50}
+                src="/CFG_logo_inverted.png"
+                alt="CFG logo"
+                loading="lazy"
+              />
+            </a>
+          </div>
           <Group gap={5} visibleFrom="xs">
             <>
               <Button onClick={openModal} className={classes.headerButton}>
                 <IconSquarePlus className={classes.headerButtonIcon} />
                 Add Exercise
+              </Button>
+              <Button onClick={navigateToGymTutorials} className={classes.headerButton}>
+                <IconVideo className={classes.headerButtonIcon} />
+                Gym Tutorials
               </Button>
               <div className={classes.verticalDivider}></div>
               <Button onClick={() => logout()} className={classes.headerButton}>

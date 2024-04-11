@@ -1,27 +1,40 @@
-import { useState } from 'react'
-import { UnstyledButton, Menu, Group, Text, Flex, Box } from '@mantine/core'
-import { IconChevronDown } from '@tabler/icons-react'
-import { exercises } from '../../utils/exercises'
-import classes from './ExercisePicker.module.css'
+import { useState } from 'react';
+import React from 'react'; // Import React
+import { UnstyledButton, Menu, Group, Text, Flex } from '@mantine/core';
+import { IconChevronDown } from '@tabler/icons-react';
+import { exercises } from '../../utils/exercises';
+import classes from './ExercisePicker.module.css';
 
-const ExercisePicker = ({ setValue, name }) => {
-  const [opened, setOpened] = useState(false)
-  const [selected, setSelected] = useState(exercises[0])
+interface ExercisePickerProps {
+  setValue: (name: string, value: any) => void; // Adapt this based on your exact type signature for setValue
+  name: string;
+  exerciseTypes?: string[]; // Make this optional
+}
 
-  const setSelectedWider = (value) => {
-    setSelected(value)
-    setValue(name, value.label)
-  }
+const ExercisePicker = ({ setValue, name, exerciseTypes }: ExercisePickerProps) => {
+  const [opened, setOpened] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(exercises[0].label); // Simplified state
 
-  const items = exercises.map((item) => (
-    <Menu.Item
-      leftSection={<item.icon />}
-      onClick={() => setSelectedWider(item)}
-      key={item.label}
-    >
-      {item.label}
-    </Menu.Item>
-  ))
+  const handleSelect = (item) => {
+    setSelectedItem(item.label || item); // Handle both categories and types
+    setValue(name, item.label || item); // Use label for categories, direct value for types
+    setOpened(false);
+  };
+
+  const renderItems = () => {
+    const items = exerciseTypes || exercises; // Use provided types or fallback to categories
+    return items.map((item) => (
+      <Menu.Item
+        onClick={() => handleSelect(item)}
+        key={item.label || item}
+      >
+        <Group gap="xs">
+          {item.icon && React.createElement(item.icon)}
+          <span className={classes.label}>{item.label || item}</span>
+        </Group>
+      </Menu.Item>
+    ));
+  };
 
   return (
     <>
@@ -36,24 +49,20 @@ const ExercisePicker = ({ setValue, name }) => {
         withinPortal
       >
         <Menu.Target>
-          <UnstyledButton
-            className={classes.control}
-            data-expanded={opened || undefined}
-          >
+          <UnstyledButton className={classes.control} data-expanded={opened || undefined}>
             <Group gap="xs">
-              <selected.icon />
-              <span className={classes.label}>{selected.label}</span>
+              {/* Assuming icons are React components */}
+              <IconChevronDown size="1rem" className={classes.icon} stroke={1.5} />
+              <span className={classes.label}>{selectedItem}</span>
             </Group>
-            <IconChevronDown
-              size="1rem"
-              className={classes.icon}
-              stroke={1.5}
-            />
           </UnstyledButton>
         </Menu.Target>
-        <Menu.Dropdown>{items}</Menu.Dropdown>
+        <Menu.Dropdown>
+          {renderItems()}
+        </Menu.Dropdown>
       </Menu>
     </>
-  )
-}
-export default ExercisePicker
+  );
+};
+
+export default ExercisePicker;

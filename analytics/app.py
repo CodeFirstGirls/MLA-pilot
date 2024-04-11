@@ -10,11 +10,18 @@ import traceback
 import logging
 import os
 from datetime import datetime, timedelta
+from flask_graphql import GraphQLView
+import graphene
+
+# Your schema definition from schema.py
+from schema.schema import schema as graphql_schema
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 CORS(app, resources={r"/*": {"origins": "*"}},
      methods="GET,HEAD,POST,OPTIONS,PUT,PATCH,DELETE")
+
+app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=graphql_schema, graphiql=True))
 
 load_dotenv()
 mongo_uri = os.getenv('MONGO_URI')

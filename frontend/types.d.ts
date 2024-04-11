@@ -13,6 +13,11 @@ type ExerciseFormInputType = {
   exerciseType: string
   exerciseDescription: string
   exerciseDuration: number | string
+  exerciseSubcategory?: string
+  sets?: number
+  reps?: number
+  weightLifted?: number
+
 }
 
 type ExerciseFormReqType = ExerciseFormInputType & { username: string }

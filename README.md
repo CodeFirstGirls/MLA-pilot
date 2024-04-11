@@ -71,25 +71,30 @@ if you're missing any version, please contact your course administrator.
 ### Building entire project with Docker (+ starting containers up)
 
 ```sh
-docker-compose up --build
+docker compose up --build
 ```
 
 ### Start existing containers (no rebuild of images)
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
 #### Spinning up a single service
 
 ```sh
-docker-compose up [servicename]
+docker compose up [servicename]
 ```
 
 #### Shutting down a service
 
 ```sh
-docker-compose down [servicename]
+docker compose down [servicename]
+```
+
+#### Docker Prune (complete refresh)
+```
+docker system prune --all --force --volumes
 ```
 
 ## Development without using Docker-Compose
@@ -161,6 +166,10 @@ To access TYK, the frontend/orchestration needs to use an API Key. This is set a
 
 If Tyk is giving errors in the logs like `connect: connection refused`, you may need to generate a new api key and place it in the env file for the frontend. 
 To do this, copy the cUrl command in the tyk folder and run it in your terminal. Paste the value of the "key" output into your .env.local file as the TYK_API_KEY, and this will give the next.js orch the authentication to hit the services through tyk.
+
+```
+. tyk/curl_command
+```
 
 ## Grafana & Prometheus
 

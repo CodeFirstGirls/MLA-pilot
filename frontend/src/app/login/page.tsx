@@ -9,7 +9,7 @@ import {
 } from '@mantine/core'
 
 import classes from './page.module.css'
-import AuthForm from '../../components/AuthForm/AuthForm'
+import AuthForm from '../../components/authForm/AuthForm'
 import { loginRequest } from '../../utils/requests'
 
 const loginPage = () => {

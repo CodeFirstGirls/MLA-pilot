@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
   console.log(req.body)
   try {
-    const { username, exerciseType, description, duration, date } = req.body;
+    const { username, exerciseType, description, duration, date, subcategory, sets, reps, weightLifted } = req.body;
 
     const newExercise = new Exercise({
       username,
@@ -25,6 +25,10 @@ router.post('/add', async (req, res) => {
       description,
       duration: Number(duration),
       date: Date.parse(date),
+      subcategory, //optional
+      sets: sets ? Number(sets) : undefined, //optional
+      reps: reps ? Number(reps) : undefined, //optional
+      weightLifted: weightLifted ? Number(weightLifted) : undefined, //optional
     });
 
     await newExercise.save();
@@ -83,6 +87,10 @@ router.put('/update/:id', async (req, res) => {
       exercise.description = description;
       exercise.duration = Number(duration);
       exercise.date = new Date(date);
+      if (subcategory !== undefined) exercise.subcategory = subcategory; // Check for undefined to allow clearing the field
+      if (sets !== undefined) exercise.sets = Number(sets); //optional
+      if (reps !== undefined) exercise.reps = Number(reps); //optional
+      if (weightLifted !== undefined) exercise.weightLifted = Number(weightLifted); //optional
   
       await exercise.save();
       res.json({ message: 'Exercise updated!', exercise });
