@@ -20,12 +20,20 @@ const Progress = ({ height }) => {
   const ProgressBars =
     data.length != 0 ? (
       data.map((item, index) => {
-        return <ProgressBar entry={item} max={maxDuration} index={index} />
+        return (
+          <ProgressBar
+            entry={item}
+            max={maxDuration}
+            index={index}
+            key={index}
+          />
+        )
       })
     ) : (
       <EmptyProgressBar />
     )
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setMaxDuration(
       data.reduce(
@@ -52,6 +60,7 @@ const Progress = ({ height }) => {
         setLoading(false)
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCurrentUser(), update])
 
   return (

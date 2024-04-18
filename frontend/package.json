@@ -39,7 +39,8 @@
     "test": "react-scripts test",
     "stubs": "stubby -d ./stubs/endpoints.yaml -s 8080 -w ",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "lint": "next lint"
   },
   "eslintConfig": {
     "extends": [

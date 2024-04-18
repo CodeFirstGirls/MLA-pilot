@@ -56,6 +56,7 @@ const WeeklyGoal = ({ height }) => {
         setLoading(false)
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, getCurrentUser(), update])
 
   const Labels =

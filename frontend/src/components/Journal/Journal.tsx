@@ -50,7 +50,7 @@ const Journal = ({ height }) => {
   const JournalEntries =
     data.length != 0 ? (
       data.map((item, index) => {
-        return <JournalEntry entry={item} />
+        return <JournalEntry entry={item} key={index} />
       })
     ) : (
       <EmptyJournalEntry />
@@ -71,6 +71,7 @@ const Journal = ({ height }) => {
         setLoading(false)
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, getCurrentUser(), update])
 
   return (
